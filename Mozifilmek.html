@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        tr:nth-child(odd) {background: #FFF}
+        tr:nth-child(even) {background: grey}
+        table,th,tr,td{
+            border:1px solid black;
+            text-align:  center;
+        }
+        th{
+            background-color: grey;
+        }
+    </style>
+<body>
+
+<form method="POST">
+  Film Neve: <br> <input type="text" name="nev" id="inputNev"><br>
+  Rendező: <br> <input type="text" id="inputRendezo"><br>
+  Kiadási Év: <br> <input type="date" id="inputkiadasiEv"><br><br>
+
+  <input type="button" onclick="Hozzaad()" value="Hozzáad">
+  <input type="button" onclick="Listaz()" value="Listazas">
+</form>
+<br>
+
+<table id="myTable" style="width:100%">
+    <tr>
+        <th>Film Neve:</th>
+        <th>Rendező:</th>
+        <th>Kiadási Év:</th>
+      </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+
+  </table>
+
+ 
+<input type="hidden" id="tablazatNev"></input>
+<input type="hidden" id="tablazatRendezo"></input>
+<input type="hidden" id="tablazatEv"></input>
+
+
+<script>
+    let filmek = [];
+class Film {
+     constructor(nev, rendezo, kiadasiEv) {
+          this.nev = nev;
+          this.rendezo = rendezo;
+          this.kiadasiEv = kiadasiEv;
+     }
+}
+var clicked = 0;
+
+function Hozzaad() {
+     let nev = document.getElementById("inputNev").value;
+     let rendezo = document.getElementById("inputRendezo").value;
+     let kiadasiEv = document.getElementById("inputkiadasiEv").value;
+     let film = new Film(nev, rendezo, kiadasiEv);
+     filmek.push(film);
+
+     document.getElementById("inputNev").value = "";
+     document.getElementById("inputRendezo").value = "";
+     document.getElementById("inputkiadasiEv").value = "";
+
+}
+function Listaz() {
+    console.log(clicked);
+    clicked++;
+    document.getElementById("tablazatNev").innerHTML = "";
+     document.getElementById("tablazatRendezo").innerHTML = "";
+     document.getElementById("tablazatEv").innerHTML = "";
+
+if (clicked %2!= 0) {
+    
+    for (let i = 0; i < filmek.length; i++) {          
+          var table = document.getElementById("myTable");
+  var row = table.insertRow(myTable.length);
+  var cell1 = row.insertCell(0);
+  var cell2 = row.insertCell(1);
+  var cell3 = row.insertCell(2);
+  cell1.innerHTML = document.getElementById("tablazatNev").innerHTML += filmek[i].nev + "<br>";
+  cell2.innerHTML = document.getElementById("tablazatRendezo").innerHTML += filmek[i].rendezo + "<br>";
+  cell3.innerHTML = document.getElementById("tablazatEv").innerHTML += filmek[i].kiadasiEv + "<br>";
+        //var invis = document.getElementById("myTable");
+       // invis.style.visibility = "visible";
+} 
+} else {
+    document.getElementById('myTable').innerHTML = '';
+    delete filmek[filmek.length-1];
+}
+   
+
+}
+
+document.getElementById("hozzaad").addEventListener("click", Hozzaad);
+document.getElementById("")
+        .addEventListener("click", function() {
+            document.getElementById("myTable").deleteRow();
+            var tables= document.getElementsByTagName('myTable');
+for (var i= tables.length; i-->0;)
+    tables[i].parentNode.removeChild(tables[i]);
+}, false);
+    </script>
+
+</body>
+</html>
